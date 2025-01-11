@@ -87,4 +87,15 @@ public:
         }
     }
 };
+int main()
+{
+    int no_floor,no_room;
+    Galaxy_hotel gh;
+    cout<<"Enter the number of floors you want to add: ";
+    cin>>no_floor;
+    cout<<"Enter the number of rooms you want to add: ";
+    cin>>no_room;
+    gh.add_floor_room(no_floor,no_room);
+    gh.display();
+}
 
