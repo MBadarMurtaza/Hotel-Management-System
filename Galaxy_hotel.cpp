@@ -24,7 +24,7 @@ public:
     floor_room* root;
     Galaxy_hotel()
     {
-        root=NULL;
+        root=nullptr;
     }
     void add_floor_room(int num_floor, int num_room)
     {
@@ -32,13 +32,13 @@ public:
         for(int floor=1;floor<=num_floor;floor++)
         {
             floor_room* floor_node=new floor_room(floor);
-            if (lastFloor)
+            if (!root)
             {
-                lastFloor->left=floor_node;
+                root = floor_node;
             }
             else
             {
-                root->right=floor_node;
+                lastFloor->right = floor_node;
             }
             lastFloor=floor_node;
             floor_room* lastRoom=nullptr;
@@ -59,13 +59,13 @@ public:
                     type="Single";
                 }
                 floor_room* room_node=new floor_room(floor,id,type,"Ready");
-                if(lastRoom)
+                if(!lastRoom)
                 {
-                    lastRoom->right=room_node;
+                     floor_node->left = room_node;
                 }
                 else
                 {
-                    lastFloor->left=room_node;
+                    lastRoom->right = room_node;
                 }
                 lastRoom=room_node;
             }
