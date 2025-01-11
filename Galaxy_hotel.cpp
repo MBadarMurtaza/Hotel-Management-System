@@ -71,5 +71,6 @@ public:
             }
         }
     }
+    void display()
 };
 
