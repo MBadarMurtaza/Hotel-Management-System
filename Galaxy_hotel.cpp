@@ -35,6 +35,61 @@ public:
         next = NULL;
     }
 };
+class bookingQueue
+{
+public:
+    bookingRequest *front;
+    bookingRequest *rear;
+    bookingQueue()
+    {
+        front = nullptr;
+        rear = nullptr;
+    }
+    void requestEnqueue(const string name, string type, int nights, floor_room *root)
+    {
+        cout << "Is this request is a high priority? (Y/N): ";
+        char ch;
+        cin >> ch;
+        if (ch == 'Y' || ch == 'y')
+        {
+            allocateRoom(name, type, nights, root);
+        }
+        else
+        {
+            bookingRequest *newRequest = new bookingRequest(name, type, nights);
+            if (rear == nullptr)
+            {
+                front = newRequest;
+                rear = newRequest;
+            }
+            else
+            {
+                rear->next = newRequest;
+                rear = newRequest;
+            }
+        }
+    }
+    void allocateRoom(const string name, string type, int nights, floor_room *root)
+    {
+        floor_room *tempFloor = root;
+        while (tempFloor)
+        {
+            floor_room *tempRoom = tempFloor->left;
+            while (tempRoom)
+            {
+                if (tempRoom->room_type == type && tempRoom->status == "Ready")
+                {
+                    tempRoom->status = "Booked";
+                    cout << "Room " << tempRoom->room_id << " allocated to " << name << " for " << nights << " nights.\n";
+                    return;
+                }
+                tempRoom = tempRoom->right;
+            }
+            tempFloor = tempFloor->right;
+        }
+        cout << "No available rooms of type " << type << ".\n";
+    }
+};
 class Galaxy_hotel
 {
 public:
