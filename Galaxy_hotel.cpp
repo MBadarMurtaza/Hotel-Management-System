@@ -89,6 +89,23 @@ public:
         }
         cout << "No available rooms of type " << type << ".\n";
     }
+    bookingRequest *dequeueRequest(floor_room *root)
+    {
+        if (front == nullptr)
+        {
+            cout << endl
+                 << "Their is not any request in the queue for processing!" << endl;
+            return nullptr;
+        }
+
+        bookingRequest *temp = front;
+        front = front->next;
+        if (front == nullptr)
+        {
+            rear = nullptr;
+        }
+        return temp;
+    }
 };
 class Galaxy_hotel
 {
