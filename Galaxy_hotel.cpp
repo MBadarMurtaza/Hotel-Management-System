@@ -72,5 +72,19 @@ public:
         }
     }
     void display()
+    {
+        floor_room* tempFloor = root;
+        while (tempFloor) {
+            cout << "Floor " << tempFloor->floor << ":\n";
+            floor_room* tempRoom = tempFloor->left;
+            while (tempRoom) {
+                cout << "  Room ID: " << tempRoom->room_id
+                     << ", Type: " << tempRoom->room_type
+                     << ", Status: " << tempRoom->status << endl;
+                tempRoom = tempRoom->right;
+            }
+            tempFloor = tempFloor->right;
+        }
+    }
 };
 
