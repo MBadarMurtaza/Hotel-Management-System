@@ -281,28 +281,35 @@ public:
         bq.requestEnqueue(name, type, nights, root, bh);
         if (bookingRequestCount == 10)
         {
-            cout << "\n10 booking requests reached! Automatically processing all requests.\n";
+            cout << endl
+                 << "10 booking requests reached! Automatically processing all requests." << endl;
             processBookingRequest(root);
             bookingRequestCount = 0;
         }
     }
     void processBookingRequest(floor_room *root)
     {
+        int count=0;
         while (!bq.isEmpty())
         {
             bookingRequest *firstRequest = bq.dequeueRequest(root);
             floor_room *room = findAvailableRoom(firstRequest->roomType);
             if (room)
             {
+                count++;
                 room->status = "Occupied";
-                cout << "Room " << room->room_id << " allocated to " << firstRequest->customerName << " for " << firstRequest->nights << " nights.\n";
+                cout << "Room " << room->room_id << " allocated to " << firstRequest->customerName << " for " << firstRequest->nights << " nights." << endl;
                 bh.push(firstRequest->customerName, firstRequest->roomType, room->room_id, firstRequest->nights);
             }
             else
             {
-                cout << "No available rooms of type " << firstRequest->roomType << ".\n";
+                cout << "No available rooms of type " << firstRequest->roomType << "." << endl;
             }
             delete firstRequest;
+        }
+        if(count==0)
+        {
+            cout<<endl<<"Their is no any pending request for processing."<<endl;
         }
     }
     floor_room *findAvailableRoom(string type)
@@ -328,7 +335,7 @@ public:
         floor_room *tempFloor = root;
         while (tempFloor)
         {
-            cout << "Floor " << tempFloor->floor << ":\n";
+            cout << "Floor " << tempFloor->floor << ":" << endl;
             floor_room *tempRoom = tempFloor->left;
             while (tempRoom)
             {
@@ -343,7 +350,8 @@ public:
 };
 void menue()
 {
-    cout << "\n=========== Galaxy Hotel Management System ===========" << endl;
+    cout << endl
+         << "=========== Galaxy Hotel Management System ===========" << endl;
     cout << "1. Add Booking Request" << endl;
     cout << "2. Process All Booking Requests" << endl;
     cout << "3. View Booking History" << endl;
@@ -351,10 +359,9 @@ void menue()
     cout << "5. Display All Hotel Room Status" << endl;
     cout << "6. Available Rooms" << endl;
     cout << "7. Room Status by Room ID" << endl;
-    cout << "8. Occupied Rooms\n";
-    cout << "9. Ready Rooms" << endl;
+    cout << "8. Occupied Rooms" << endl;
     cout << "0. Exit" << endl;
-    cout << "======================================================"<<endl;
+    cout << "======================================================" << endl;
     cout << "Enter your choice: ";
 }
 int main()
