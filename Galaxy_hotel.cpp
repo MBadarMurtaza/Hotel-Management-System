@@ -177,7 +177,7 @@ public:
         int nights;
         cout << "Enter the customer name: ";
         cin >> name;
-        cout << "Enter the room type(Single(S), Double(D), Suite(SU)): ";
+        cout << "Enter the room type (Single(S), Double(D), Suite(SU)): ";
         cin >> type;
         do
         {
@@ -198,19 +198,16 @@ public:
             }
             else
             {
-                cout << "Sorry this type of room is not exists in Galaxy hotel!" << endl;
-                cout << "Kinldy select your type again (Single(S), Double(D), Suite(SU)): ";
+                cout << "Invalid room type. Please select (Single(S), Double(D), Suite(SU)): ";
                 cin >> type;
             }
-        } while (type != "S" && type != "D" && type != "SU");
-        cout << "How many days do you want to stay: ";
+        } while (true);
+        cout << "How many nights do you want to stay: ";
         cin >> nights;
-        bookingQueue bq;
         bq.requestEnqueue(name, type, nights, root);
         if (bookingRequestCount == 10)
         {
-            cout << endl
-                 << "As the booking request count is 10, so the processing of the request is done automatically!" << endl;
+            cout << "\n10 booking requests reached! Automatically processing all requests.\n";
             processBookingRequest(root);
             bookingRequestCount = 0;
         }
