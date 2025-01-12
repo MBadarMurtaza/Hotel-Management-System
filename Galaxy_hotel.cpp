@@ -162,6 +162,40 @@ public:
     }
     void addBookingRequest()
     {
+        string name,type;
+        int nights;
+        cout<<"Enter the customer name: ";
+        cin>>name;
+        cout<<"Enter the room type(Single(S), Double(D), Suite(SU)): ";
+        cin>>type;
+        do
+        {
+            if(type=="S")
+            {
+                type="Single";
+                break;
+            }
+            else if(type=="D")
+            {
+                type="Double";
+                break;
+            }
+            else if(type=="SU")
+            {
+                type="Suite";
+                break;
+            }
+            else 
+            {
+                cout<<"Sorry this type of room is not exists in Galaxy hotel!"<<endl;
+                cout<<"Kinldy select your type again (Single(S), Double(D), Suite(SU)): ";
+                cin>>type;
+            }
+        } while (type != "S" && type != "D" && type != "SU");
+        cout<<"How many days do you want to stay: ";
+        cin>>nights;
+        bookingQueue bq;
+        bq.requestEnqueue(name,type,nights,root);
     }
     void display()
     {
