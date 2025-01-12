@@ -330,6 +330,11 @@ public:
         }
         return nullptr;
     }
+    void bookingHistoryDisplay()
+    {
+        bh.display();
+    }
+    void displayAllRoomStatus()
     {
         floor_room *tempFloor = root;
         while (tempFloor)
@@ -341,6 +346,103 @@ public:
                 cout << "  Room ID: " << tempRoom->room_id
                      << ", Type: " << tempRoom->room_type
                      << ", Status: " << tempRoom->status << endl;
+                tempRoom = tempRoom->right;
+            }
+            tempFloor = tempFloor->right;
+        }
+    }
+    void availableRooms()
+    {
+        floor_room *tempFloor = root;
+        while (tempFloor)
+        {
+            cout << "Available Rooms at Floor" << tempFloor->floor << ": " << endl;
+            floor_room *tempRoom = tempFloor->left;
+            while (tempRoom)
+            {
+                if (tempRoom->status == "Ready")
+                {
+                    cout << "  Room ID: " << tempRoom->room_id
+                         << ", Type: " << tempRoom->room_type
+                         << ", Status: " << tempRoom->status << endl;
+                }
+                tempRoom = tempRoom->right;
+            }
+            tempFloor = tempFloor->right;
+        }
+    }
+    void roomStatusById()
+    {
+        string id;
+        cout << "Enter the id of room: ";
+        cin >> id;
+        floor_room *tempFloor = root;
+        int count = 0;
+        while (tempFloor)
+        {
+            floor_room *tempRoom = tempFloor->left;
+            while (tempRoom)
+            {
+                if (tempRoom->room_id == id)
+                {
+                    count++;
+                    cout << "  Room ID: " << tempRoom->room_id
+                         << ", Type: " << tempRoom->room_type
+                         << ", Status: " << tempRoom->status << endl;
+                }
+                tempRoom = tempRoom->right;
+            }
+            tempFloor = tempFloor->right;
+        }
+        if (count == 0)
+        {
+            cout << "Their is no any room with this (" << id << ") id." << endl;
+        }
+    }
+    void occupiedRoom()
+    {
+        int count = 0;
+        floor_room *tempFloor = root;
+        while (tempFloor)
+        {
+            cout << "Available Rooms at Floor" << tempFloor->floor << ": " << endl;
+            floor_room *tempRoom = tempFloor->left;
+            while (tempRoom)
+            {
+                if (tempRoom->status == "Occupied")
+                {
+                    count++;
+                    cout << "  Room ID: " << tempRoom->room_id
+                         << ", Type: " << tempRoom->room_type
+                         << ", Status: " << tempRoom->status << endl;
+                }
+                tempRoom = tempRoom->right;
+            }
+            tempFloor = tempFloor->right;
+        }
+        if (count > 0)
+        {
+            cout << "Total Room Occupied are :" << count << endl;
+        }
+        else
+        {
+            cout << "Their is no any room which is occupied!" << endl;
+        }
+    }
+    void updateRoomStatus()
+    {
+        string id=bh.pop();
+        floor_room *tempFloor = root;
+        while (tempFloor)
+        {
+            floor_room *tempRoom = tempFloor->left;
+            while (tempRoom)
+            {
+                if (tempRoom->room_id == id)
+                {
+                    tempRoom->status="Ready";
+                    return;
+                }
                 tempRoom = tempRoom->right;
             }
             tempFloor = tempFloor->right;
