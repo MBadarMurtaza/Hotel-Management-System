@@ -117,6 +117,73 @@ public:
         return false;
     }
 };
+class bookingHistoryStack
+{
+public:
+    class bookingNode
+    {
+    public:
+        bookingNode *next;
+        string customerName;
+        string roomType;
+        string roomId;
+        int nights;
+        bookingNode(const string name, string type, string id, int no_night)
+        {
+            customerName = name;
+            roomType = type;
+            roomId = id;
+            nights = no_night;
+            next = nullptr;
+        }
+    };
+    bookingNode *top = nullptr;
+    bookingHistoryStack()
+    {
+        top = nullptr;
+    }
+    void push(const string name, const string type, const string id, int no_night)
+    {
+        bookingNode *newBooking = new bookingNode(name, type, id, no_night);
+        newBooking->next = top;
+        top = newBooking;
+    }
+    void pop()
+    {
+        if (top == nullptr)
+        {
+            cout << "Their is no booking history in the stack!" << endl;
+            return;
+        }
+        else
+        {
+            bookingNode *temp = top;
+            top = top->next;
+            delete temp;
+        }
+    }
+    void diplay()
+    {
+        bookingNode *current = top;
+        if (current == nullptr)
+        {
+            cout << "Their is no booking history to show!" << endl;
+            return;
+        }
+        else
+        {
+            cout << "Booking History:\n";
+            while (current != nullptr)
+            {
+                cout << "Name: " << current->customerName << endl;
+                cout << "Room Type: " << current->roomType << endl;
+                cout << "Room Id: " << current->roomId << endl;
+                cout << "Total Day Stay: " << current->nights << endl;
+                current = current->next;
+            }
+        }
+    }
+};
 class Galaxy_hotel
 {
 public:
