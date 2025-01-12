@@ -330,7 +330,6 @@ public:
         }
         return nullptr;
     }
-    void display()
     {
         floor_room *tempFloor = root;
         while (tempFloor)
