@@ -46,14 +46,14 @@ public:
         front = nullptr;
         rear = nullptr;
     }
-    void requestEnqueue(const string name, string type, int nights, floor_room *root)
+    void requestEnqueue(const string name, string type, int nights, floor_room *root, bookingHistoryStack &bh)
     {
         cout << "Is this request is a high priority? (Y/N): ";
         char ch;
         cin >> ch;
         if (ch == 'Y' || ch == 'y')
         {
-            allocateRoom(name, type, nights, root);
+            allocateRoom(name, type, nights, root, bh);
         }
         else
         {
@@ -71,7 +71,7 @@ public:
         }
         bookingRequestCount++;
     }
-    void allocateRoom(const string name, string type, int nights, floor_room *root)
+    void allocateRoom(const string name, const string type, int nights, floor_room *root, bookingHistoryStack &bh)
     {
         floor_room *tempFloor = root;
         while (tempFloor)
@@ -83,6 +83,7 @@ public:
                 {
                     tempRoom->status = "Occupied";
                     cout << "Room " << tempRoom->room_id << " allocated to " << name << " for " << nights << " nights.\n";
+                    bh.push(name, type, tempRoom->room_id, nights);
                     return;
                 }
                 tempRoom = tempRoom->right;
@@ -91,6 +92,7 @@ public:
         }
         cout << "No available rooms of type " << type << ".\n";
     }
+
     bookingRequest *dequeueRequest(floor_room *root)
     {
         if (front == nullptr)
@@ -189,6 +191,7 @@ class Galaxy_hotel
 public:
     floor_room *root;
     bookingQueue bq;
+    bookingHistoryStack bh;
     Galaxy_hotel()
     {
         root = nullptr;
@@ -271,7 +274,7 @@ public:
         } while (true);
         cout << "How many nights do you want to stay: ";
         cin >> nights;
-        bq.requestEnqueue(name, type, nights, root);
+        bq.requestEnqueue(name, type, nights, root, bh);
         if (bookingRequestCount == 10)
         {
             cout << "\n10 booking requests reached! Automatically processing all requests.\n";
@@ -289,6 +292,7 @@ public:
             {
                 room->status = "Occupied";
                 cout << "Room " << room->room_id << " allocated to " << firstRequest->customerName << " for " << firstRequest->nights << " nights.\n";
+                bh.push(firstRequest->customerName, firstRequest->roomType, room->room_id, firstRequest->nights);
             }
             else
             {
