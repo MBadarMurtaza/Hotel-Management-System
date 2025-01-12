@@ -289,7 +289,7 @@ public:
     }
     void processBookingRequest(floor_room *root)
     {
-        int count=0;
+        int count = 0;
         while (!bq.isEmpty())
         {
             bookingRequest *firstRequest = bq.dequeueRequest(root);
@@ -307,9 +307,10 @@ public:
             }
             delete firstRequest;
         }
-        if(count==0)
+        if (count == 0)
         {
-            cout<<endl<<"Their is no any pending request for processing."<<endl;
+            cout << endl
+                 << "Their is no any pending request for processing." << endl;
         }
     }
     floor_room *findAvailableRoom(string type)
@@ -405,7 +406,6 @@ public:
         floor_room *tempFloor = root;
         while (tempFloor)
         {
-            cout << "Available Rooms at Floor" << tempFloor->floor << ": " << endl;
             floor_room *tempRoom = tempFloor->left;
             while (tempRoom)
             {
@@ -431,7 +431,7 @@ public:
     }
     void updateRoomStatus()
     {
-        string id=bh.pop();
+        string id = bh.pop();
         floor_room *tempFloor = root;
         while (tempFloor)
         {
@@ -440,7 +440,7 @@ public:
             {
                 if (tempRoom->room_id == id)
                 {
-                    tempRoom->status="Ready";
+                    tempRoom->status = "Ready";
                     return;
                 }
                 tempRoom = tempRoom->right;
