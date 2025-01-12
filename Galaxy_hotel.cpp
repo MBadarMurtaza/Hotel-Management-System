@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 using namespace std;
+int bookingRequestCount = 0;
 class floor_room
 {
 public:
@@ -68,6 +69,7 @@ public:
                 rear = newRequest;
             }
         }
+        bookingRequestCount++;
     }
     void allocateRoom(const string name, string type, int nights, floor_room *root)
     {
@@ -106,11 +108,20 @@ public:
         }
         return temp;
     }
+    bool isEmpty()
+    {
+        if (front == nullptr)
+        {
+            return true;
+        }
+        return false;
+    }
 };
 class Galaxy_hotel
 {
 public:
     floor_room *root;
+    bookingQueue bq;
     Galaxy_hotel()
     {
         root = nullptr;
@@ -162,40 +173,82 @@ public:
     }
     void addBookingRequest()
     {
-        string name,type;
+        string name, type;
         int nights;
-        cout<<"Enter the customer name: ";
-        cin>>name;
-        cout<<"Enter the room type(Single(S), Double(D), Suite(SU)): ";
-        cin>>type;
+        cout << "Enter the customer name: ";
+        cin >> name;
+        cout << "Enter the room type(Single(S), Double(D), Suite(SU)): ";
+        cin >> type;
         do
         {
-            if(type=="S")
+            if (type == "S")
             {
-                type="Single";
+                type = "Single";
                 break;
             }
-            else if(type=="D")
+            else if (type == "D")
             {
-                type="Double";
+                type = "Double";
                 break;
             }
-            else if(type=="SU")
+            else if (type == "SU")
             {
-                type="Suite";
+                type = "Suite";
                 break;
             }
-            else 
+            else
             {
-                cout<<"Sorry this type of room is not exists in Galaxy hotel!"<<endl;
-                cout<<"Kinldy select your type again (Single(S), Double(D), Suite(SU)): ";
-                cin>>type;
+                cout << "Sorry this type of room is not exists in Galaxy hotel!" << endl;
+                cout << "Kinldy select your type again (Single(S), Double(D), Suite(SU)): ";
+                cin >> type;
             }
         } while (type != "S" && type != "D" && type != "SU");
-        cout<<"How many days do you want to stay: ";
-        cin>>nights;
+        cout << "How many days do you want to stay: ";
+        cin >> nights;
         bookingQueue bq;
-        bq.requestEnqueue(name,type,nights,root);
+        bq.requestEnqueue(name, type, nights, root);
+        if(bookingRequestCount == 10)
+        {
+            cout<<endl<<"As the booking request count is 10, so the processing of the request is done automatically!"<<endl;
+            processBookingRequest(root);
+            bookingRequestCount = 0;
+        }
+    }
+    void processBookingRequest(floor_room *root)
+    {
+        while (!bq.isEmpty())
+        {
+            bookingRequest *firstRequest = bq.dequeueRequest(root);
+            floor_room *room = findAvailableRoom(firstRequest->roomType);
+            if (room)
+            {
+                room->status = "Booked";
+                cout << "Room " << room->room_id << " allocated to " << firstRequest->customerName << " for " << firstRequest->nights << " nights.\n";
+            }
+            else
+            {
+                cout << "No available rooms of type " << firstRequest->roomType << ".\n";
+            }
+            delete firstRequest;
+        }
+    }
+    floor_room *findAvailableRoom(string type)
+    {
+        floor_room *tempFloor = root;
+        while (tempFloor)
+        {
+            floor_room *tempRoom = tempFloor->left;
+            while (tempRoom)
+            {
+                if (tempRoom->room_type == type && tempRoom->status == "Ready")
+                {
+                    return tempRoom;
+                }
+                tempRoom = tempRoom->right;
+            }
+            tempFloor = tempFloor->right;
+        }
+        return nullptr;
     }
     void display()
     {
