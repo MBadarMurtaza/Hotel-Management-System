@@ -337,6 +337,22 @@ public:
         }
     }
 };
+void menue()
+{
+    cout << "\n=========== Galaxy Hotel Management System ===========" << endl;
+    cout << "1. Add Booking Request" << endl;
+    cout << "2. Process All Booking Requests" << endl;
+    cout << "3. View Booking History" << endl;
+    cout << "4. Cancel most recent Booking from History" << endl;
+    cout << "5. Display All Hotel Room Status" << endl;
+    cout << "6. Available Rooms" << endl;
+    cout << "7. Room Status by Room ID" << endl;
+    cout << "8. Occupied Rooms\n";
+    cout << "9. Ready Rooms" << endl;
+    cout << "0. Exit" << endl;
+    cout << "======================================================"<<endl;
+    cout << "Enter your choice: ";
+}
 int main()
 {
     int no_floor, no_room;
@@ -346,4 +362,5 @@ int main()
     cout << "Enter the number of rooms you want to add: ";
     cin >> no_room;
     gh.add_floor_room(no_floor, no_room);
+    
 }
