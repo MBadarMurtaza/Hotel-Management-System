@@ -81,7 +81,7 @@ public:
             {
                 if (tempRoom->room_type == type && tempRoom->status == "Ready")
                 {
-                    tempRoom->status = "Booked";
+                    tempRoom->status = "Occupied";
                     cout << "Room " << tempRoom->room_id << " allocated to " << name << " for " << nights << " nights.\n";
                     return;
                 }
@@ -207,9 +207,10 @@ public:
         cin >> nights;
         bookingQueue bq;
         bq.requestEnqueue(name, type, nights, root);
-        if(bookingRequestCount == 10)
+        if (bookingRequestCount == 10)
         {
-            cout<<endl<<"As the booking request count is 10, so the processing of the request is done automatically!"<<endl;
+            cout << endl
+                 << "As the booking request count is 10, so the processing of the request is done automatically!" << endl;
             processBookingRequest(root);
             bookingRequestCount = 0;
         }
@@ -222,7 +223,7 @@ public:
             floor_room *room = findAvailableRoom(firstRequest->roomType);
             if (room)
             {
-                room->status = "Booked";
+                room->status = "Occupied";
                 cout << "Room " << room->room_id << " allocated to " << firstRequest->customerName << " for " << firstRequest->nights << " nights.\n";
             }
             else
