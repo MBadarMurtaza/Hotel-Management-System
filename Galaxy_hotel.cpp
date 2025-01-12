@@ -366,5 +366,42 @@ int main()
     cout << "Enter the number of rooms you want to add: ";
     cin >> no_room;
     gh.add_floor_room(no_floor, no_room);
-    
+    int choice;
+    do
+    {
+        menue();
+        cin >> choice;
+        switch (choice)
+        {
+        case 1:
+            gh.addBookingRequest();
+            break;
+        case 2:
+            gh.processBookingRequest(gh.root);
+            break;
+        case 3:
+            gh.bookingHistoryDisplay();
+            break;
+        case 4:
+            gh.updateRoomStatus();
+            break;
+        case 5:
+            gh.displayAllRoomStatus();
+            break;
+        case 6:
+            gh.availableRooms();
+            break;
+        case 7:
+            gh.roomStatusById();
+            break;
+        case 8:
+            gh.occupiedRoom();
+            break;
+        case 0:
+            cout << "Exiting the program. Goodbye!" << endl;
+            break;
+        default:
+            cout << "Invalid choice. Please try again." << endl;
+        }
+    } while (choice != 0);
 }
