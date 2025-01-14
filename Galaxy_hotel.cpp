@@ -283,11 +283,11 @@ public:
         {
             cout << endl
                  << "10 booking requests reached! Automatically processing all requests." << endl;
-            processBookingRequest(root);
+            processBookingRequest();
             bookingRequestCount = 0;
         }
     }
-    void processBookingRequest(floor_room *root)
+    void processBookingRequest()
     {
         int count = 0;
         while (!bq.isEmpty())
@@ -485,7 +485,7 @@ int main()
             gh.addBookingRequest();
             break;
         case 2:
-            gh.processBookingRequest(gh.root);
+            gh.processBookingRequest();
             break;
         case 3:
             gh.bookingHistoryDisplay();
