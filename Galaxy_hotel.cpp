@@ -84,7 +84,6 @@ public:
             return roomId;
         }
     }
-
     void display()
     {
         bookingNode *current = top;
@@ -453,15 +452,17 @@ void menue()
 {
     cout << endl
          << "=========== Galaxy Hotel Management System ===========" << endl;
-    cout << "1. Add Booking Request" << endl;
-    cout << "2. Process All Booking Requests" << endl;
-    cout << "3. View Booking History" << endl;
-    cout << "4. Cancel most recent Booking from History" << endl;
-    cout << "5. Display All Hotel Room Status" << endl;
-    cout << "6. Available Rooms" << endl;
-    cout << "7. Room Status by Room ID" << endl;
-    cout << "8. Occupied Rooms" << endl;
-    cout << "0. Exit" << endl;
+    cout << "||                                                   ||" <<endl;    
+    cout << "||      1. Add Booking Request                       ||" << endl;
+    cout << "||      2. Process All Booking Requests              ||" << endl;
+    cout << "||      3. View Booking History                      ||" << endl;
+    cout << "||      4. Cancel most recent Booking from Histor    ||" << endl;
+    cout << "||      5. Display All Hotel Room Status             ||" << endl;
+    cout << "||      6. Available Rooms                           ||" << endl;
+    cout << "||      7. Room Status by Room ID                    ||" << endl;
+    cout << "||      8. Occupied Rooms                            ||" << endl;
+    cout << "||      0. Exit                                      ||" << endl;
+    cout << "||                                                   ||" <<endl;
     cout << "======================================================" << endl;
     cout << "Enter your choice: ";
 }
