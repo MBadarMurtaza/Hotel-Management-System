@@ -97,10 +97,10 @@ public:
             cout << "Booking History:" << endl;
             while (current != nullptr)
             {
-                cout << "Name: " << current->customerName << endl;
-                cout << "Room Type: " << current->roomType << endl;
-                cout << "Room Id: " << current->roomId << endl;
-                cout << "Total Day Stay: " << current->nights << endl;
+                cout << "Name: " << current->customerName
+                     << ", Room Type: " << current->roomType
+                     << ", Room Id: " << current->roomId
+                     << ", Total Day Stay: " << current->nights << endl;
                 current = current->next;
             }
         }
@@ -389,6 +389,7 @@ public:
                     cout << "  Room ID: " << tempRoom->room_id
                          << ", Type: " << tempRoom->room_type
                          << ", Status: " << tempRoom->status << endl;
+                    return;
                 }
                 tempRoom = tempRoom->right;
             }
@@ -452,7 +453,7 @@ void menue()
 {
     cout << endl
          << "=========== Galaxy Hotel Management System ===========" << endl;
-    cout << "||                                                   ||" <<endl;    
+    cout << "||                                                   ||" << endl;
     cout << "||      1. Add Booking Request                       ||" << endl;
     cout << "||      2. Process All Booking Requests              ||" << endl;
     cout << "||      3. View Booking History                      ||" << endl;
@@ -462,7 +463,7 @@ void menue()
     cout << "||      7. Room Status by Room ID                    ||" << endl;
     cout << "||      8. Occupied Rooms                            ||" << endl;
     cout << "||      0. Exit                                      ||" << endl;
-    cout << "||                                                   ||" <<endl;
+    cout << "||                                                   ||" << endl;
     cout << "======================================================" << endl;
     cout << "Enter your choice: ";
 }
